@@ -2,6 +2,7 @@
 
 // Contributers:
 // Fareed Syed - 500819438
+// Jeremiah Lumbantobing - 500826233
 // Add your name - student#
 
 
