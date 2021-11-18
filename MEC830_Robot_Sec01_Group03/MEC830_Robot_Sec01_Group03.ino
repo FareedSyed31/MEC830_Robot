@@ -5,7 +5,9 @@
 // Jeremiah Lumbantobing - 500826233
 // Add your name - student#
 
-// testing github pull option 
+// testing github pull option
+
+#include <Stepper.h>
 
 void setup() {
   // put your setup code here, to run once:
