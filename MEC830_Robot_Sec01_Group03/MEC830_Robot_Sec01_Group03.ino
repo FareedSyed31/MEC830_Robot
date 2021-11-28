@@ -34,7 +34,7 @@ void setup() {
 void loop() {
   directionControl();
 //  delay(1000);
-  speedControl();
+//  speedControl();
 //  delay(1000);
 }
 
@@ -50,13 +50,13 @@ void directionControl() {
   delay(2000);
 
   // Now change motor directions
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-  delay(2000);
-
-  // Turn off motors
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, LOW);
+//  digitalWrite(in1, LOW);
+//  digitalWrite(in2, HIGH);
+//  delay(2000);
+//
+//  // Turn off motors
+//  digitalWrite(in1, LOW);
+//  digitalWrite(in2, LOW);
 }
 
 // This function lets you control speed of the motors
