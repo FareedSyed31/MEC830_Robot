@@ -9,7 +9,7 @@
 #define REPT 4294967295
 #include "IRremote.h"
 
-IRrecv irrecv(11); //change to pin for IR remove signal
+IRrecv irrecv(12); //change to pin for IR remove signal
 decode_results results;
 
 int move_status = 0;
