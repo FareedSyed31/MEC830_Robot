@@ -4,7 +4,7 @@
 // Fareed Syed - 500819438
 // Jeremiah Lumbantobing - 500826233
 // MP - 500590070
-// Genelle St. Croix - 500654701
+// Add your name - student#
 
 // testing github pull option
 
@@ -24,7 +24,7 @@ void setup() {
   pinMode(in1, OUTPUT);
   pinMode(in2, OUTPUT);
 
-  // Turn off motors - Initial state
+  // Turn off motors - Initial stateppull
   digitalWrite(in1, LOW);
   digitalWrite(in2, LOW);
 
