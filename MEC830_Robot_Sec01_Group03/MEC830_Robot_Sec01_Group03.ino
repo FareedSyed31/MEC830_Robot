@@ -33,9 +33,9 @@ void setup() {
 
 void loop() {
   directionControl();
-  delay(5000);
+//  delay(1000);
   speedControl();
-  delay(5000);
+//  delay(1000);
 }
 
 // This function lets you control spinning direction of motors
