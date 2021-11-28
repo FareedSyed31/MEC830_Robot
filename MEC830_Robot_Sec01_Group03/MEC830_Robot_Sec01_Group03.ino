@@ -4,11 +4,12 @@
 // Fareed Syed - 500819438
 // Jeremiah Lumbantobing - 500826233
 // MP - 500590070
-// Add your name - student#
+// Genelle St. Croix - 500654701
 
 // testing github pull option
 
 #include <Stepper.h>
+Stepper stepper(255, 8, 9, 10, 11);
 
 // DC Motor
 int enB = 2;
@@ -17,24 +18,24 @@ int in2 = 4;
 
 void setup() {
   // Set all the motor control pins to outputs
-  //  pinMode(enA, OUTPUT);
   pinMode(enB, OUTPUT);
   pinMode(in1, OUTPUT);
   pinMode(in2, OUTPUT);
-  //  pinMode(in3, OUTPUT);
-  //  pinMode(in4, OUTPUT);
 
   // Turn off motors - Initial state
   digitalWrite(in1, LOW);
   digitalWrite(in2, LOW);
-  //  digitalWrite(in3, LOW);
-  //  digitalWrite(in4, LOW);
+
+  stepper.setSpeed(50);
 }
 
 void loop() {
   directionControl();
+  stepper.step(1000);
+  delay(1000);
+  stepper.step(-1000);
 //  delay(1000);
-  speedControl();
+//  speedControl();
 //  delay(1000);
 }
 
@@ -50,13 +51,13 @@ void directionControl() {
   delay(2000);
 
   // Now change motor directions
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, HIGH);
-  delay(2000);
-
-  // Turn off motors
-  digitalWrite(in1, LOW);
-  digitalWrite(in2, LOW);
+//  digitalWrite(in1, LOW);
+//  digitalWrite(in2, HIGH);
+//  delay(2000);
+//
+//  // Turn off motors
+//  digitalWrite(in1, LOW);
+//  digitalWrite(in2, LOW);
 }
 
 // This function lets you control speed of the motors
