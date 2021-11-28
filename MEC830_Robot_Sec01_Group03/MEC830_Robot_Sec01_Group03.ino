@@ -9,6 +9,7 @@
 // testing github pull option
 
 #include <Stepper.h>
+Stepper stepper(255, 8, 9, 10, 11);
 
 // DC Motor
 int enB = 2;
@@ -17,22 +18,22 @@ int in2 = 4;
 
 void setup() {
   // Set all the motor control pins to outputs
-  //  pinMode(enA, OUTPUT);
   pinMode(enB, OUTPUT);
   pinMode(in1, OUTPUT);
   pinMode(in2, OUTPUT);
-  //  pinMode(in3, OUTPUT);
-  //  pinMode(in4, OUTPUT);
 
   // Turn off motors - Initial state
   digitalWrite(in1, LOW);
   digitalWrite(in2, LOW);
-  //  digitalWrite(in3, LOW);
-  //  digitalWrite(in4, LOW);
+
+  stepper.setSpeed(50);
 }
 
 void loop() {
   directionControl();
+  stepper.step(1000);
+  delay(1000);
+  stepper.step(-1000);
 //  delay(1000);
 //  speedControl();
 //  delay(1000);
