@@ -15,6 +15,8 @@ Stepper stepper(255, 8, 9, 10, 11);
 int enB = 2;
 int in1 = 3;
 int in2 = 4;
+int i = 0;
+bool stop = false;
 
 void setup() {
   // Set all the motor control pins to outputs
@@ -30,13 +32,18 @@ void setup() {
 }
 
 void loop() {
-  directionControl();
-  stepper.step(1000);
-  delay(1000);
-  stepper.step(-1000);
-//  delay(1000);
-//  speedControl();
-//  delay(1000);
+
+  while (stop == false) {
+    directionControl();
+    delay(2000);
+    stepper.step(2000);
+    delay(2000);
+    i++;
+    if (i == 4) {
+      stop = true;
+    }
+
+  }
 }
 
 // This function lets you control spinning direction of motors
@@ -45,19 +52,16 @@ void directionControl() {
   // For PWM maximum possible values are 0 to 255
   analogWrite(enB, 255);
 
-  // Turn on motor A & B
-  digitalWrite(in1, HIGH);
-  digitalWrite(in2, LOW);
-  delay(2000);
+  // Turn on motor to Go forward
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  delay(1000);
 
-  // Now change motor directions
-//  digitalWrite(in1, LOW);
-//  digitalWrite(in2, HIGH);
-//  delay(2000);
-//
-//  // Turn off motors
-//  digitalWrite(in1, LOW);
-//  digitalWrite(in2, LOW);
+  // Turn off motors
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, LOW);
+  delay(1000);
+
 }
 
 // This function lets you control speed of the motors
