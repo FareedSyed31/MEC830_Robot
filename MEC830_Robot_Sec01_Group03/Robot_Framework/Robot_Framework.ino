@@ -15,7 +15,7 @@ Stepper stepper(32, 8, 10, 9, 11);
 //DC Motor
 int enB = 2;
 int in3 = 4;
-int in4 = 2;
+int in4 = 3;
 int i = 0;
 
 bool stop = false;
