@@ -16,7 +16,8 @@ int enB = 2;
 int in1 = 3;
 int in2 = 4;
 int i = 0;
-bool stop = false;
+bool stop_task2 = false;
+bool stop_task4 = false;
 
 void setup() {
   // Set all the motor control pins to outputs
@@ -32,6 +33,7 @@ void setup() {
 }
 
 void loop() {
+  Task_2();
   Task_4();
 }
 
@@ -53,17 +55,31 @@ void run_DC_motor() {
 
 }
 
+void Task_2() {
+  while (stop_task2 == false) {
+    delay(2000);
+    run_DC_motor();
+    stepper.step(2500);
+    delay(1000);
+    run_DC_motor();
+    stepper.step(-2500);
+    run_DC_motor();
+    delay(1000);
+//    break;
+    stop_task2 = true;
+  }
+}
+
 void Task_4() {
   delay(2000);
-  while (stop == false) {
+  while (stop_task4 == false) {
     run_DC_motor();
-    //    delay(1000);
-    stepper.step(2500);
     delay(2000);
     i++;
     if (i == 4) {
-      stop = true;
+      stop_task4 = true;
+      break;
     }
-
+    stepper.step(2500);
   }
 }
