@@ -16,7 +16,9 @@ int enB = 2;
 int in1 = 3;
 int in2 = 4;
 int i = 0;
+
 bool stop_task2 = false;
+bool stop_task3 = false;
 bool stop_task4 = false;
 
 void setup() {
@@ -34,6 +36,7 @@ void setup() {
 
 void loop() {
   Task_2();
+  Task_3();
   Task_4();
 }
 
@@ -56,8 +59,8 @@ void run_DC_motor() {
 }
 
 void Task_2() {
+  delay(2000);
   while (stop_task2 == false) {
-    delay(2000);
     run_DC_motor();
     stepper.step(2500);
     delay(1000);
@@ -65,8 +68,23 @@ void Task_2() {
     stepper.step(-2500);
     run_DC_motor();
     delay(1000);
-//    break;
     stop_task2 = true;
+  }
+}
+
+void Task_3(){
+  delay(2000);
+  while (stop_task3 == false){
+    run_DC_motor();
+    stepper.step(-1250);
+    run_DC_motor();
+    stepper.step(1250);
+    run_DC_motor();
+    stepper.step(1250);
+    run_DC_motor();
+    stepper.step(-1250);
+    run_DC_motor();
+    stop_task3 = true;
   }
 }
 
