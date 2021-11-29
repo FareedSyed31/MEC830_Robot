@@ -9,8 +9,8 @@
 #define REPT 4294967295
 #include "IRremote.h"
 #include "Stepper.h"
-
-Stepper stepper(255, 8, 9, 10, 11);
+//in1,in2,in3,in4 for stepper setup
+Stepper stepper(32, 8, 10, 9, 11);
 
 //DC Motor
 int enB = 2;
@@ -34,7 +34,7 @@ void setup() {
   digitalWrite(in4, LOW);
   Serial.println("IR Receiver Button Test");
   irrecv.enableIRIn();
-  stepper.setSpeed(100);
+  stepper.setSpeed(500);
 }
 
 void loop() {
@@ -50,6 +50,7 @@ void loop() {
         break;
       case TURN_LEFT:
         Serial.println("Left");
+//        stepper.step(1024);
         move_status = 3;
         break;
       case TURN_RIGHT:
@@ -70,25 +71,36 @@ void loop() {
         break;
       case TASK4:
         Serial.println("Task 4 GO!");
-        stepper.step(2500);
         move_status = 0;
         break;
       default:
         switch (move_status){
           case 1:
             Serial.println("+ cont");
+            analogWrite(enB, 255);
+            digitalWrite(in3, LOW);
+            digitalWrite(in4, HIGH);
+            delay(100);
+            digitalWrite(in3, LOW);
+            digitalWrite(in4, LOW);
             break;
           case 2:
             Serial.println("- cont");
             break;
           case 3:
             Serial.println("left cont");
+            stepper.step(10);
             break;
           case 4:
             Serial.println("right cont");
+            stepper.step(-10);
             break;
           default:
             Serial.println(results.value);
+            digitalWrite(8, LOW);
+            digitalWrite(9, LOW);
+            digitalWrite(10, LOW);
+            digitalWrite(11, LOW);
             break;
         }
     }
