@@ -37,7 +37,7 @@ void setup() {
   digitalWrite(in1, LOW);
   digitalWrite(in2, LOW);
 
-  stepper.setSpeed(500);
+  stepper.setSpeed(1000);
 
   pinMode (x_key, INPUT) ;  //declaring the joystick inputs
   pinMode (y_key, INPUT) ;
@@ -45,8 +45,8 @@ void setup() {
 
 void loop() {
   //  Task_1();
-  Task_2();
-  Task_3();
+  //  Task_2();
+  //  Task_3();
   Task_4();
 }
 
@@ -96,7 +96,7 @@ void Task_1() {
     // Turn on motor to Go forward
     digitalWrite(in1, HIGH);
     digitalWrite(in2, LOW);
-    delay(1000); ;
+    delay(2500); ;
     // Turn off motors
     digitalWrite(in1, LOW);
     digitalWrite(in2, LOW);
@@ -122,10 +122,10 @@ void Task_2() {
   delay(2000);
   while (stop_task2 == false) {
     run_DC_motor();
-    stepper.step(2500);
+    stepper.step(3000);
     delay(1000);
     run_DC_motor();
-    stepper.step(-2500);
+    stepper.step(-3000);
     run_DC_motor();
     delay(1000);
     stop_task2 = true;
@@ -158,6 +158,6 @@ void Task_4() {
       stop_task4 = true;
       break;
     }
-    stepper.step(2500);
+    stepper.step(3000);
   }
 }
