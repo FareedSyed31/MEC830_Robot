@@ -9,7 +9,7 @@
 // testing github pull option
 
 #include <Stepper.h>
-Stepper stepper(255, 8, 9, 10, 11);
+Stepper stepper(32, 8, 9, 10, 11);
 
 // DC Motor
 int enB = 2;
@@ -21,6 +21,12 @@ bool stop_task2 = false;
 bool stop_task3 = false;
 bool stop_task4 = false;
 
+const int x_key = A1;
+const int y_key = A0;
+
+int x_pos;
+int y_pos;
+
 void setup() {
   // Set all the motor control pins to outputs
   pinMode(enB, OUTPUT);
@@ -31,10 +37,14 @@ void setup() {
   digitalWrite(in1, LOW);
   digitalWrite(in2, LOW);
 
-  stepper.setSpeed(100);
+  stepper.setSpeed(500);
+
+  pinMode (x_key, INPUT) ;  //declaring the joystick inputs
+  pinMode (y_key, INPUT) ;
 }
 
 void loop() {
+  //  Task_1();
   Task_2();
   Task_3();
   Task_4();
@@ -58,6 +68,56 @@ void run_DC_motor() {
 
 }
 
+void Task_1() {
+  x_pos = analogRead (x_key) ;  //reading joystick signals
+  y_pos = analogRead (y_key) ;
+  Serial.print(x_key);
+  Serial.print(" ");
+  Serial.println(y_key);
+
+  if (x_pos < 300) {
+
+    analogWrite(enB, 255);
+
+    // Turn on motor to Go forward
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, HIGH);
+    delay(1000);
+    // Turn off motors
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+  }
+
+
+  if (x_pos > 700) {
+
+    analogWrite(enB, 255);
+
+    // Turn on motor to Go forward
+    digitalWrite(in1, HIGH);
+    digitalWrite(in2, LOW);
+    delay(1000); ;
+    // Turn off motors
+    digitalWrite(in1, LOW);
+    digitalWrite(in2, LOW);
+
+
+  }
+
+
+  if (y_pos < 300) {
+
+    stepper.step (100) ;
+
+  }
+
+  if (y_pos > 700) {
+
+    stepper.step (-100);
+
+  }
+}
+
 void Task_2() {
   delay(2000);
   while (stop_task2 == false) {
@@ -72,9 +132,9 @@ void Task_2() {
   }
 }
 
-void Task_3(){
+void Task_3() {
   delay(2000);
-  while (stop_task3 == false){
+  while (stop_task3 == false) {
     run_DC_motor();
     stepper.step(-1250);
     run_DC_motor();
