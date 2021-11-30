@@ -1,3 +1,4 @@
+
 #define MOVE_FORWARD 16736925
 #define MOVE_BACK 16754775
 #define TURN_LEFT 16720605
@@ -7,6 +8,7 @@
 #define TASK3 16743045
 #define TASK4 16716015
 #define REPT 4294967295
+#define STOP 16756815
 #include "IRremote.h"
 #include "Stepper.h"
 //in1,in2,in3,in4 for stepper setup
@@ -17,6 +19,7 @@ int enB = 2;
 int in3 = 4;
 int in4 = 3;
 int i = 0;
+bool stop_task3 = false;
 
 bool stop = false;
 
@@ -67,12 +70,22 @@ void loop() {
         break;
       case TASK3:
         Serial.println("3");
+        Task_3();
         move_status = 0;
         break;
       case TASK4:
         Serial.println("Task 4 GO!");
         move_status = 0;
         break;
+      case STOP:
+        digitalWrite(in3, LOW);
+        digitalWrite(in4, LOW);
+        digitalWrite(enB, LOW);
+        digitalWrite(8, LOW);
+        digitalWrite(9, LOW);
+        digitalWrite(10, LOW);
+        digitalWrite(11, LOW);
+        move_status = 0;
       default:
         switch (move_status){
           case 1:
@@ -80,9 +93,10 @@ void loop() {
             analogWrite(enB, 255);
             digitalWrite(in3, LOW);
             digitalWrite(in4, HIGH);
-            delay(100);
-            digitalWrite(in3, LOW);
-            digitalWrite(in4, LOW);
+//            delay(16);
+//            digitalWrite(enB, 0);
+//            digitalWrite(in3, LOW);
+//            digitalWrite(in4, LOW);
             break;
           case 2:
             Serial.println("- cont");
@@ -105,5 +119,35 @@ void loop() {
         }
     }
     irrecv.resume();
+  }
+}
+void run_DC_motor() {
+  // Set motors to maximum speed
+  // For PWM maximum possible values are 0 to 255
+  analogWrite(enB, 255);
+
+  // Turn on motor to Go forward
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+  delay(1000);
+
+  // Turn off motors
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, LOW);
+  delay(1000);
+}
+void Task_3(){
+  delay(2000);
+  while (stop_task3 == false){
+    run_DC_motor();
+    stepper.step(-1250);
+    run_DC_motor();
+    stepper.step(1250);
+    run_DC_motor();
+    stepper.step(1250);
+    run_DC_motor();
+    stepper.step(-1250);
+    run_DC_motor();
+    stop_task3 = true;
   }
 }
